@@ -1,7 +1,7 @@
 # zenoh-gateway-cli
 
-The `zenoh-gateway` command: a [zenoh-gateway](https://github.com/jeff-hykin/zenoh-gateway) server with the ROS 2
-/ dimos codecs of [zenoh-dimos-codecs](https://github.com/jeff-hykin/zenoh-dimos-codecs). View and
+The `zenoh-gateway` command: a [zenoh-gateway](https://github.com/dimensionalOS/zenoh-gateway) server with the ROS 2
+/ dimos codecs of [zenoh-dimos-codecs](https://github.com/dimensionalOS/zenoh-dimos-codecs). View and
 drive a zenoh system from a browser over WebRTC: camera images as H.264 video (hardware-encoded where it can), lossless depth,
 quantized point clouds, raw bytes for everything else, and a per-browser bandwidth allocator. The
 client API, the allocator and the wire protocol are documented in zenoh-gateway's README and SPEC.md.
@@ -13,24 +13,24 @@ client API, the allocator and the wire protocol are documented in zenoh-gateway'
 Prebuilt binaries (Linux x86_64/aarch64 with glibc ≥ 2.35, macOS Apple Silicon/Intel; no Windows):
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/jeff-hykin/zenoh-gateway-cli/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/dimensionalOS/zenoh-gateway-cli/main/install.sh | sh
 ```
 
-It picks the [release](https://github.com/jeff-hykin/zenoh-gateway-cli/releases) tarball for your OS/CPU,
+It picks the [release](https://github.com/dimensionalOS/zenoh-gateway-cli/releases) tarball for your OS/CPU,
 checks it against `SHA256SUMS`, and installs `zenoh-gateway` into `~/.local/bin`. Env overrides:
 `ZENOH_GATEWAY_VERSION=v0.3.0`, `ZENOH_GATEWAY_INSTALL_DIR=/somewhere/bin`.
 
 With nix (builds from source; aarch64-darwin, aarch64-linux, x86_64-linux):
 
 ```sh
-nix profile install github:jeff-hykin/zenoh-gateway-cli   # puts zenoh-gateway on your PATH
-nix run github:jeff-hykin/zenoh-gateway-cli -- --help     # or run it without installing
+nix profile install github:dimensionalOS/zenoh-gateway-cli   # puts zenoh-gateway on your PATH
+nix run github:dimensionalOS/zenoh-gateway-cli -- --help     # or run it without installing
 ```
 
 ## Quick start
 
 ```sh
-git clone https://github.com/jeff-hykin/zenoh-gateway-cli && cd zenoh-gateway-cli
+git clone https://github.com/dimensionalOS/zenoh-gateway-cli && cd zenoh-gateway-cli
 cargo run --release -- --serve examples/web --connect tcp/127.0.0.1:7447   # your zenoh router/peer's endpoint
 # open http://localhost:7448/
 ```
@@ -166,7 +166,7 @@ nix develop                                            # Rust (+ Linux targets),
 - The macOS binary links `/usr/lib/libiconv.2.dylib` (rewritten from nix's copy), so it runs on Macs without nix.
   The Intel one is a plain cargo build by the same clang/SDK with `--target x86_64-apple-darwin` (nixpkgs no longer
   has x86_64-darwin, so it can't go through crate2nix).
-- After changing `Cargo.lock`, regenerate `Cargo.nix`: `nix run github:jeff-hykin/zenoh-gateway#crate2nix -- generate`.
+- After changing `Cargo.lock`, regenerate `Cargo.nix`: `nix run github:dimensionalOS/zenoh-gateway#crate2nix -- generate`.
 
 ## Releases
 
@@ -196,9 +196,9 @@ codecs'). To test local changes, point cargo at your clones, e.g.
 `cargo update` after adding to `.cargo/config.toml`:
 
 ```toml
-[patch."https://github.com/jeff-hykin/zenoh-gateway"]
+[patch."https://github.com/dimensionalOS/zenoh-gateway"]
 zenoh-gateway = { path = "../zenoh-gateway/gateway" }
-[patch."https://github.com/jeff-hykin/zenoh-dimos-codecs"]
+[patch."https://github.com/dimensionalOS/zenoh-dimos-codecs"]
 zenoh-dimos-codecs = { path = "../zenoh-dimos-codecs" }
 ```
 

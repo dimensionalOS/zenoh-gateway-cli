@@ -1,10 +1,10 @@
 #!/bin/sh
 # Installs the zenoh-gateway binary from a GitHub release.
-#   curl -fsSL https://raw.githubusercontent.com/jeff-hykin/zenoh-gateway-cli/main/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/dimensionalOS/zenoh-gateway-cli/main/install.sh | sh
 # env: ZENOH_GATEWAY_VERSION (e.g. v0.3.0; default: latest release), ZENOH_GATEWAY_INSTALL_DIR (default: ~/.local/bin)
 set -eu
 
-repo="jeff-hykin/zenoh-gateway-cli"
+repo="dimensionalOS/zenoh-gateway-cli"
 install_dir="${ZENOH_GATEWAY_INSTALL_DIR:-$HOME/.local/bin}"
 
 fail() {

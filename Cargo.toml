@@ -4,7 +4,7 @@ version = "0.5.2"
 edition = "2024"
 rust-version = "1.88"
 description = "The zenoh-gateway command: zenoh-gateway with the ROS 2 / dimos codecs"
-repository = "https://github.com/jeff-hykin/zenoh-gateway-cli"
+repository = "https://github.com/dimensionalOS/zenoh-gateway-cli"
 license-file = "LICENSE"
 readme = "README.md"
 # only what building the command needs
