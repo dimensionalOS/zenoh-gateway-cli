@@ -4,7 +4,7 @@
 // liveliness both ways, matching, session info, and sample kind/encoding/attachment on subscriptions.
 // Usage: deno run --allow-all test/zenoh_api.js
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { buildAll, check, finish, launchBrowser, machineLoad, startBridge, startPeer } from "./harness.js"
 
 const scratch = $.path(await Deno.makeTempDir({ prefix: "zenoh-gateway-api-" }))

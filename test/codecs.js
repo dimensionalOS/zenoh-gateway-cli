@@ -3,7 +3,7 @@
 // the bridge and decoded in headless Chrome (H.264 video tracks, lossless depth, point clouds).
 // Usage: deno run --allow-all test/codecs.js
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { buildAll, check, finish, fixtureKey, fixturesDir, launchBrowser, loadManifest, machineLoad, startBridge, startPeer } from "./harness.js"
 
 const scratch = $.path(await Deno.makeTempDir({ prefix: "zenoh-gateway-codecs-" }))

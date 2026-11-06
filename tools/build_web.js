@@ -1,10 +1,10 @@
 #!/usr/bin/env -S deno run --allow-all
 // Builds a servable web root: zenoh-gateway's client at the revision Cargo.lock pins, bundled to
-// client/zenoh_gateway.js (esbuild via `deno bundle`, the same transform esm.sh applies to the .ts), plus
+// client/zenoh_gateway.js (esbuild via `deno bundle`), plus
 // the examples/web and test/ pages.
 // Usage: deno run --allow-all tools/build_web.js [outDir]   (default: build)
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 
 export const repoRoot = $.path(import.meta.url).parentOrThrow().parentOrThrow()
 
@@ -18,12 +18,12 @@ export async function crateRoots() {
     const metadata = JSON.parse(await $`cargo metadata --format-version 1`.cwd(repoRoot).text())
     /** @param {string} name */
     const crateDir = (name) => $.path(metadata.packages.find((/** @type {{ name: string }} */ crate) => crate.name === name).manifest_path).parentOrThrow()
-    const fromRegistry = (/** @type {import("https://esm.sh/dax-sh@0.42.0").Path} */ dir) => dir.toString().includes("/.cargo/registry/")
+    const fromRegistry = (/** @type {import("jsr:@david/dax@0.42.0").Path} */ dir) => dir.toString().includes("/.cargo/registry/")
     /**
      * @param {string} envVar
      * @param {string[]} siblings
      * @param {string} repository
-     * @param {(dir: import("https://esm.sh/dax-sh@0.42.0").Path) => boolean} isCheckout
+     * @param {(dir: import("jsr:@david/dax@0.42.0").Path) => boolean} isCheckout
      */
     const checkout = async (envVar, siblings, repository, isCheckout) => {
         const fromEnv = Deno.env.get(envVar)
@@ -38,7 +38,7 @@ export async function crateRoots() {
         }
         const cache = $.path(Deno.env.get("HOME") ?? ".").join(".cache/zenoh-gateway-cli", repository)
         if (!isCheckout(cache)) {
-            await $`git clone --depth 1 https://github.com/jeff-hykin/${repository} ${cache}`
+            await $`git clone --depth 1 https://github.com/dimensionalOS/${repository} ${cache}`
         }
         return cache
     }

@@ -50,12 +50,12 @@ Then on the page type a key (e.g. `demo/camera/sensor_msgs.Image`; the encoding 
 `dimos_lcm_image`; the channel select defaults to the encoding's own) and press Add. A recent stable Rust (edition 2024), or `nix develop` for a shell with
 Rust, deno, zig and cargo-zigbuild.
 
-The example page (`examples/web/`, plain JS, no build step) imports zenoh-gateway's client from esm.sh at
-a pinned commit, so the browser needs internet. Depth and point clouds arrive as zenoh-gateway fields that
+The example page (`examples/web/`, plain JS) imports zenoh-gateway's client from `/client/zenoh_gateway.js`,
+the bundle `deno task build` makes (serve its output: `zenoh-gateway --serve build`, then open
+`/examples/index.html`), so nothing comes from the internet. Depth and point clouds arrive as zenoh-gateway fields that
 the client decodes itself (`msg.decoded`), zstd-compressed by default; the encodings and what each
 sends come from the server (`client.encodings`). Query parameters: `?gateway=<url>` (default: the
-page's origin) and `?client=<module url>` (e.g. `/client/zenoh_gateway.js` from `deno task build`, to work
-offline).
+page's origin) and `?client=<module url>` (another build of the client).
 
 ## Flags
 
@@ -237,7 +237,6 @@ Chrome (never the one on port 9222):
   reaching both ends. With coturn's `turnserver` on PATH (or `TURNSERVER=<path>`; nixpkgs marks it
   broken on darwin, `NIXPKGS_ALLOW_BROKEN=1 nix build --impure nixpkgs#coturn` builds it) it also
   runs a relay-only connection through a local coturn with `--turn-secret` credentials.
-- `test/example.js` (`deno task e2e:example`): the example page served by `--serve examples/web`, driven
+- `test/example.js` (`deno task e2e:example`): the example page served from the built web root, driven
   through its form; checks decoded video frames, drawn points and depth, the raw rate, a control
-  re-subscribing, no console errors, and saves a screenshot to its artifacts dir (`UPDATE_SCREENSHOT=1` refreshes `test/artifacts/example.png`). **Needs internet**
-  (esm.sh, at the commits `examples/web/app.js` pins).
+  re-subscribing, no console errors, and saves a screenshot to its artifacts dir (`UPDATE_SCREENSHOT=1` refreshes `test/artifacts/example.png`).

@@ -5,7 +5,7 @@
 // errors that end its channels at once, which a browser on another machine never does.
 // Usage: deno run --allow-all test/abandoned.js
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { launch } from "jsr:@astral/astral@0.5.6"
 import { buildAll, check, finish, fixtureKey, fixturesDir, loadManifest, startBridge, startPeer } from "./harness.js"
 

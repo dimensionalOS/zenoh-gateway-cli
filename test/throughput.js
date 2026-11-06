@@ -3,7 +3,7 @@
 // subscription to a stream that wants more than the link carries, measured as delivered bytes/s.
 // Usage: deno run --allow-all --unstable-net test/throughput.js [--profile jitter50|wifi|spiky|all] [--seconds 15] [--delivery latest|reliable]
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { parseArgs } from "jsr:@std/cli@1/parse-args"
 import { buildAll, check, finish, launchBrowser, machineLoad, startBridge, startPeer } from "./harness.js"
 import { links, percentiles, startShapedLink } from "./shaped_link.js"

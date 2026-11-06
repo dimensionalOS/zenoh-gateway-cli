@@ -8,7 +8,7 @@
 // Usage: deno run --allow-all --unstable-net tools/link_lab.js [--port 8787] [--gateway name=/path/to/zenoh-gateway ...] [--no-build]
 //   --gateway (repeatable) offers more gateway builds to switch between on the page (A/B); "built" is this checkout's.
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { parseArgs } from "jsr:@std/cli@1/parse-args"
 import { TextLineStream } from "jsr:@std/streams@1/text-line-stream"
 import { buildAll, cleanup, freePort, killOnCleanup, releaseDir, startBridge } from "../test/harness.js"

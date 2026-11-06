@@ -2,7 +2,7 @@
 // End-to-end: zenoh test peer <-> zenoh-gateway bridge <-> headless Chrome over real WebRTC.
 // Usage: deno run --allow-all test/e2e.js
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { buildAll, check, failures, finish, launchBrowser, machineLoad, startBridge, startPeer } from "./harness.js"
 
 const scratch = $.path(await Deno.makeTempDir({ prefix: "zenoh-gateway-e2e-" }))

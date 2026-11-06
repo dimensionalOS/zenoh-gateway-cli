@@ -1,8 +1,8 @@
-// zenoh-gateway example: no build step, the TypeScript client comes transpiled from esm.sh; depth and
-// point clouds arrive as fields the client decodes, so no decoding code is needed.
-// Query params: ?gateway=<url> (default: this page's origin), ?client=<module url> (e.g. a local bundle).
+// zenoh-gateway example: plain JS, the client is the bundle `deno task build` puts at /client/zenoh_gateway.js; depth
+// and point clouds arrive as fields the client decodes, so no decoding code is needed.
+// Query params: ?gateway=<url> (default: this page's origin), ?client=<module url> (another build of the client).
 
-const defaultClientUrl = "https://esm.sh/gh/dimensionalOS/zenoh-gateway@28c17f08b3afcac56ede2f29816b89b427c4aba0/client/zenoh_gateway.ts"
+const defaultClientUrl = "/client/zenoh_gateway.js"
 
 const params = new URLSearchParams(location.search)
 const bridgeUrl = params.get("gateway") ?? location.origin
@@ -297,7 +297,7 @@ class VideoView {
         }
     }
 
-    /** @param {import("https://esm.sh/gh/dimensionalOS/zenoh-gateway/client/zenoh_gateway.ts").Message} message */
+    /** @param {{ mediaStream: MediaStream, video: Record<string, any> }} message a video Message (zenoh-gateway client/zenoh_gateway.ts) */
     draw(message) {
         this.attach(message.mediaStream)
         const info = message.video

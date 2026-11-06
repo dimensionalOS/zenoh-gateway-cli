@@ -1,10 +1,10 @@
 #!/usr/bin/env -S deno run --allow-all
 // The example page (examples/web), served by the bridge itself, driven like a user in headless Chrome:
 // video, point cloud, depth and a raw stream from fixtures published by a real zenoh peer.
-// Needs internet: the page imports the client from esm.sh, at a pushed commit.
+// The page's client is bundled from the zenoh-gateway checkout cargo builds against (tools/build_web.js).
 // Usage: deno run --allow-all test/example.js   (UPDATE_SCREENSHOT=1 to refresh the README's test/artifacts/example.png)
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { buildAll, check, finish, fixtureKey, fixturesDir, launchBrowser, loadManifest, machineLoad, repoRoot, startBridge, startPeer } from "./harness.js"
 
 const scratch = $.path(await Deno.makeTempDir({ prefix: "zenoh-gateway-example-" }))
@@ -35,14 +35,10 @@ try {
         ...streams.flatMap((stream) => ["--publish", `${stream.key}=${fixturesDir.join(stream.file)}@10`]),
         "--synthetic", `${rawKey}=1500@20`,
     ])
-    // ZW_LOCAL_CLIENT=1: the page uses zenoh-gateway's client from the checkout cargo builds (before it is pushed)
-    const localClient = Deno.env.get("ZW_LOCAL_CLIENT") === "1"
-    let webDir = repoRoot.join("examples/web")
-    if (localClient) {
-        webDir = await buildAll(scratch)
-        for (const entry of repoRoot.join("examples/web").readDirSync()) {
-            repoRoot.join("examples/web", entry.name).copyFileSync(webDir.join(entry.name))
-        }
+    // the built web root (its /client/zenoh_gateway.js) with the example's files at its top
+    const webDir = await buildAll(scratch)
+    for (const entry of repoRoot.join("examples/web").readDirSync()) {
+        repoRoot.join("examples/web", entry.name).copyFileSync(webDir.join(entry.name))
     }
     const bridge = await startBridge(scratch, peer.zenohPort, webDir)
     await $.sleep(1000)
@@ -58,8 +54,8 @@ try {
     })
     page.addEventListener("pageerror", (event) => consoleErrors.push(`uncaught: ${event.detail?.message ?? event.detail}`))
     await page.setViewportSize({ width: 1400, height: 1100 })
-    $.logStep(`opening ${bridge.url}/index.html (client from esm.sh)`)
-    await page.goto(`${bridge.url}/index.html${localClient ? "?client=/client/zenoh_gateway.js" : ""}`)
+    $.logStep(`opening ${bridge.url}/index.html`)
+    await page.goto(`${bridge.url}/index.html`)
 
     const connected = await page.evaluate(async () => {
         for (let attempt = 0; attempt < 150; attempt++) {
@@ -70,7 +66,7 @@ try {
         }
         return false
     })
-    check(connected, "page loads the client from esm.sh and connects to the bridge")
+    check(connected, "page loads the bundled client and connects to the bridge")
 
     $.logStep("listing topics")
     const topics = await page.evaluate(async () => {

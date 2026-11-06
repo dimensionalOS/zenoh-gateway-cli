@@ -4,7 +4,7 @@
 // exactly; the browser reads the stamp back from what it drew. Same machine, so one clock.
 // Usage: deno run --allow-all --unstable-net test/video_latency.js [--profile direct|jitter50|wifi] [--seconds 15]
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { parseArgs } from "jsr:@std/cli@1/parse-args"
 import { buildAll, check, finish, fixturesDir, launchBrowser, machineLoad, startBridge, startPeer } from "./harness.js"
 import { links, percentiles, startShapedLink } from "./shaped_link.js"

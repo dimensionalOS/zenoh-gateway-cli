@@ -1,6 +1,6 @@
 // Shared pieces of the end-to-end tests: real zenoh test peer, real bridge, headless Chrome.
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { launch } from "jsr:@astral/astral@0.5.6"
 import { buildWeb, crateRoots, repoRoot } from "../tools/build_web.js"
 
@@ -123,7 +123,7 @@ export function fixtureKey(entry) {
 
 /**
  * Builds the bridge + test peer (+ `examples`, release) and the web root.
- * @param {import("https://esm.sh/dax-sh@0.42.0").Path} scratch
+ * @param {import("jsr:@david/dax@0.42.0").Path} scratch
  * @param {string[]} examples
  */
 export async function buildAll(scratch, examples = []) {
@@ -153,9 +153,9 @@ export async function startPeer(extraArgs) {
 
 /**
  * Starts the bridge (or another binary taking the same --port/--zenoh-config/--connect/--serve flags).
- * @param {import("https://esm.sh/dax-sh@0.42.0").Path} scratch
+ * @param {import("jsr:@david/dax@0.42.0").Path} scratch
  * @param {number} zenohPort
- * @param {import("https://esm.sh/dax-sh@0.42.0").Path} webRoot
+ * @param {import("jsr:@david/dax@0.42.0").Path} webRoot
  * @param {string[]} extraArgs
  * @param {string} binary
  * @param {object} zenohConfig more zenoh config for the bridge's session

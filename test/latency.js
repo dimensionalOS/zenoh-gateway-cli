@@ -3,7 +3,7 @@
 // between Chrome and the bridge (2 MB/s bridge->browser, 1 MB drop-tail queue, 5 ms each way).
 // Usage: deno run --allow-all --unstable-net test/latency.js
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { buildAll, check, finish, launchBrowser, machineLoad, startBridge, startPeer } from "./harness.js"
 import { startShapedLink } from "./shaped_link.js"
 

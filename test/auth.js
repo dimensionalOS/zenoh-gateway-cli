@@ -2,7 +2,7 @@
 // End-to-end: tokens and grants (--auth-file), revocation, leases, and ICE/TURN configuration.
 // Usage: deno run --allow-all test/auth.js   (the TURN part needs coturn's turnserver on PATH or TURNSERVER=<path>)
 
-import { $ } from "https://esm.sh/dax-sh@0.42.0"
+import { $ } from "jsr:@david/dax@0.42.0"
 import { buildAll, check, finish, freePort, killOnCleanup, launchBrowser, machineLoad, startBridge, startPeer } from "./harness.js"
 
 const scratch = $.path(await Deno.makeTempDir({ prefix: "zenoh-gateway-auth-" }))
