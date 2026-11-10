@@ -20,6 +20,9 @@ function plansFor(entry) {
     if (type === "PointCloud2") {
         return [{ codec: `${protocol}_pointcloud2`, kind: "pointcloud" }]
     }
+    if (type === "CompressedVideo") {
+        return [{ codec: `${protocol}_compressed_video`, kind: "video" }]
+    }
     if (type === "CompressedImage") {
         return entry.file.includes("depth") ? [{ codec: `${protocol}_compressed_depth`, kind: "depth" }] : [{ codec: `${protocol}_compressed_image`, kind: "video" }]
     }

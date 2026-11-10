@@ -395,7 +395,8 @@ try {
     check(sourcesOf("test/unsubscribed/token").includes("token"), "listTopics finds liveliness tokens")
     check(!topicKeys.includes("test/unsubscribed/silent"), "listTopics can't see a declared publisher that never puts (documented)")
     const declaredOnlySources = extra.declaredOnly.flatMap((topic) => topic.sources)
-    check(declaredOnlySources.includes("token") && !declaredOnlySources.includes("sample"), `listTopics probeMs 0: tokens without a sample probe (${JSON.stringify(extra.declaredOnly)})`)
+    // the catalog runs for the gateway's lifetime, so the probe above is remembered (SPEC.md "Topic enumeration")
+    check(declaredOnlySources.includes("token") && declaredOnlySources.includes("sample"), `listTopics probeMs 0: answers from the catalog, keeping what an earlier probe saw (${JSON.stringify(extra.declaredOnly)})`)
     check(extra.health?.service === "zenoh-gateway" && typeof extra.health?.version === "string", `GET /zenoh-gateway/health identifies the server (${JSON.stringify(extra.health)})`)
     check(extra.allTopics.includes("test/cached") && !extra.allTopics.includes("test/queryable"), `listTopics(**) sees the AdvancedPublisher's token, not a queryable without one (documented) (${extra.allTopics.join(", ")})`)
 
